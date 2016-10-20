@@ -1,16 +1,41 @@
 package se.nackademin.examination.examination_jacoco;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import java.util.Random;
 import java.util.UUID;
+
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class GameTest {
+	
+	@Test
+	public void testRun() {
+		Game game = new Game();
+		ArrayList<String> arr = new ArrayList<String>();
+		arr.addAll(Arrays.asList("Football", "Siamak", "Shoja", "M", "35", "Tehran"));
+		game.run(arr);
+	}
+	
+	@Test
+	public void testGetGenderFromInputValues(){
+		Game game = new Game();
+		ArrayList<String> arr = new ArrayList<String>();
+		arr.addAll(Arrays.asList("Football", "Siamak", "Shoja", "M", "35", "Tehran"));
+		assertEquals("The result should be M", 'M', game.getGenderFromInputValues(arr));
+	}
+	
+	@Test
+	public void testGetAgeFromInputValues(){
+		Game game = new Game();
+		ArrayList<String> arr = new ArrayList<String>();
+		arr.addAll(Arrays.asList("Football", "Siamak", "Shoja", "M", "35", "Tehran"));
+		assertEquals("The result should be 35", 35, game.getAgeFromInputValues(arr));
+	}
 
 	@Test
 	public void testCalculateOutPutBasedOnNames() {
@@ -78,30 +103,11 @@ public class GameTest {
 	@Test
 	public void testBuildFinalString() {
 		Game game = new Game();
-		ArrayList<String> con = new ArrayList<String>();
-		con.add("Football");
-		con.add("Siamak");
-		con.add("Shoja");
-		con.add("M");
-		con.add("35");
-		con.add("Tehran");
-		
-		
-		String firstName1 = UUID.randomUUID().toString().substring(0, 6);
-		String lastName1 = UUID.randomUUID().toString().substring(0, 4);
-		int i = game.calculateOutPutBasedOnNames(firstName1, lastName1);
-		assertEquals("The result should be 1", i, 1);
-		
-		String firstName2 = UUID.randomUUID().toString().substring(0, 4);
-		String lastName2 = UUID.randomUUID().toString().substring(0, 6);
-		int j = game.calculateOutPutBasedOnNames(firstName2, lastName2);
-		assertEquals("The result should be 0", j, 0);
-		
-		String firstName3 = UUID.randomUUID().toString().substring(0, 6);
-		String lastName3 = UUID.randomUUID().toString().substring(0, 6);
-		int z = game.calculateOutPutBasedOnNames(firstName3, lastName3);
-		assertEquals("The result should be 2", z, 2);
+		ResultFromInputs res = new ResultFromInputs();
+		Conversor cc = new Conversor();
+		game.buildFinalString("Siamak", "Shoja", res, cc);
 	}
+	
 	
 	
 	
